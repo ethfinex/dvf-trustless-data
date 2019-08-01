@@ -1,0 +1,21 @@
+{
+  "name": "Ethfinex's trustless data",
+  "description": "Logs all Fill events and settelement transactions and provide and HTTP API to query the data.",
+  "repository": "https://github.com/ethfinex/efx-trustless-data",
+  "logo": "https://avatars3.githubusercontent.com/u/33315316?s=200&v=4",
+  "keywords": ["node", "express", "ethfinex", "bitfinex", "trustless", "blockchain", "exchange"],
+  "image": "heroku/nodejs",
+  "engines": {
+    "node": "10.14.2"
+  },
+  "addons": [
+    {
+      "plan": "mongolab:free",
+      "as": "MONGODB"
+    },
+    {
+      "plan": "papertrail:free",
+      "as": "PAPERTRAIL"
+    }
+  ]
+}

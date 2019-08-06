@@ -7,4 +7,8 @@ connectMongoose(process.env.MONGODB_URI)
 
 const syncDatabase = require('./jobs/syncDatabase')
 
-// syncDatabase()
+// For development it's recommented to run tess once and stay with a small
+// dataset locally for tests.
+if(process.env.NODE_ENV == 'production'){
+  syncDatabase()
+}

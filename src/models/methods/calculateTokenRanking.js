@@ -32,6 +32,9 @@ module.exports = async (token, startDate, endDate) => {
     }
   }
 
+  // remove ethfinex address from ranking
+  delete volumes['0x61b9898c9b60a159fc91ae8026563cd226b7a0c1']
+
   const ranking = []
 
   for(const address in volumes){

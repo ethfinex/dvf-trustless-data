@@ -13,12 +13,12 @@ const Block = require('../src/models/Block')
 const Transaction = require('../src/models/Transaction')
 const Event = require('../src/models/Event')
 
-const Web3 = require('web3')
-const getEfxConfig = require('../src/lib/efx/getConfig.js')
+const getEfxConfig = require('../src/lib/efx/getConfig')
+const getHourlyCandle = require('../src/lib/bfx/getHourlyCandle')
 
 const getBlock = require('../src/lib/web3/getBlock')
 const getFillLogs = require('../src/lib/0x/getFillLogs')
-const saveFillLogs = require('../src/lib/0x/saveFillLogs')
+const saveFillLogs = require('../src/lib/efx/saveFillLogs')
 
 
 const calculateTokenRanking = require('../src/models/methods/calculateTokenRanking')
@@ -35,7 +35,36 @@ nockBack( 'all-tests.json', nockDone => {
 
   after( () => nockDone() )
 
-  describe('~ efx-trustless-data', async () => {
+  describe('~ bfx-data', async () => {
+    it('get candle for 1564620468 timestamp', async () => {
+      // 1564620468 is timestamp for: 2019-08-01 00:47:48.000Z
+      const candle = await getHourlyCandle('ETH', 1564620468)
+
+      assert.equal(candle.length, 6)
+      assert.notOk(candle.cached)
+
+    })
+
+    it('get cached candle for 1564620478 timestamp', async () => {
+      // 1564620468 is timestamp for: 2019-08-01 00:2:58.000Z
+      const candle = await getHourlyCandle('ETH', 1564620178)
+
+      assert.equal(candle.length, 6)
+      assert.equal(candle.cached, true)
+    })
+
+    it('get candle for 1564820178 timestamp', async () => {
+      // 1564820178 is timestamp for: 2019-08-03 08:16:18.000Z
+      const candle = await getHourlyCandle('ETH', 1564820178)
+
+      assert.equal(candle.length, 6)
+      assert.notOk(candle.cached)
+
+    })
+
+  })
+  
+  describe('~ trustless-data', async () => {
 
     it('config is being fetched from ethfinex api', async () => {
 
@@ -58,12 +87,12 @@ nockBack( 'all-tests.json', nockDone => {
       const lastBlock = await getBlock()
 
       const range = {
+        fromBlock: {
+          number: 8232529, // roughly 8 hours
+        },
         toBlock: {
           number: 8261329,
         },
-        fromBlock: {
-          number: 8232529, // roughly 8 hours
-        } 
       }
 
       const logs = await getFillLogs(range)

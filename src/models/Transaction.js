@@ -10,7 +10,7 @@ const schema = new Schema({
     priceETH: Number, // the price of this transaction in ETH
 
     // TODO: add
-    //   - ETHUsdPrice : ETH USD price at this block
+    //   - ETHUSDPrice : ETH USD price at this block
     //   - priceUSD    : USD value paid in Gas
 
     // block number

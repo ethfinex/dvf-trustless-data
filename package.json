@@ -19,6 +19,7 @@
     "moment": "^2.23.0",
     "mongodb": "^3.1.10",
     "mongoose": "^5.6.7",
+    "node-cache": "^4.2.1",
     "node-cron": "^2.0.3",
     "request-promise": "^4.2.2",
     "sleep-promise": "^8.0.1",

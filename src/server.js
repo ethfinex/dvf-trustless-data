@@ -17,7 +17,6 @@ require('./routes/api/v1/block')(server)
 require('./routes/api/v1/transaction')(server)
 require('./routes/api/v1/event')(server)
 
-
 require('./routes/api/v1/events/maker')(server)
 require('./routes/api/v1/events/taker')(server)
 

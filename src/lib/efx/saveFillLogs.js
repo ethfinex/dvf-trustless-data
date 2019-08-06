@@ -4,6 +4,12 @@ const Event = require('../../models/Event')
 
 const _ = require('lodash')
 
+/**
+ * 
+ * Save fill logs captured by ../0x/getFillLogs ads Market Price where
+ * necessary then save to mongodb
+ * 
+ */
 module.exports = async (logs) => {
 
   // list of mongoose's Block documents
@@ -47,6 +53,8 @@ module.exports = async (logs) => {
 
       tx.numEvents = numEvents
       tx.priceETH = (tx.gasUsed * tx.gasPrice) / 10e18 // amount of ETH paid
+
+      console.log("block time stamp ->", block.number, block.timestamp)
 
       const doc = new Transaction(_.omit(tx, 'events'))
 

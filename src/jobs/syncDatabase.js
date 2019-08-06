@@ -9,7 +9,7 @@ const saveFillLogs = require('../lib/0x/saveFillLogs')
 
 // blocks behind latest block we will be scanning, for instance
 // if latest block is 100 we will be getting the logs until block 93
-const NEEDS_TX_FOR_CONFIRMATION = 7
+const WAIT_BLOCKS_TO_CONFIRM = 7
 
 // - Block #8062292 is the last block from June/2019
 // - chunkSize is the amount of blocks scanned at at time.
@@ -36,7 +36,7 @@ module.exports = sync = async (
 
   const targetBlockNumber = Math.min(
     lastScannedBlock.value + chunkSize, 
-    lastBlock.number - NEEDS_TX_FOR_CONFIRMATION
+    lastBlock.number - WAIT_BLOCKS_TO_CONFIRM
   )
 
   // if we have scanned all blocks, then sleep 5 secs and try again
@@ -79,6 +79,12 @@ module.exports = sync = async (
   const updateLastBlock = await State.findOneAndUpdate(
     {_id: 'lastBlock'}, 
     {$set:{value: lastBlock.number}},
+    {upsert: true}
+  )
+
+  const updateWBTC = await State.findOneAndUpdate(
+    {_id: 'WAIT_BLOCKS_TO_CONFIRM'}, 
+    {$set:{value: WAIT_BLOCKS_TO_CONFIRM}},
     {upsert: true}
   )
 

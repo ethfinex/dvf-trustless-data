@@ -22,10 +22,10 @@
   - [/api/v1/events/0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110-45](https://efx-trustless-data.herokuapp.com/api/v1/events/0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110-45)
     - Return information for event id: 0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110-45
 
-  - [/api/v1/maker/0xf63246f4df508eba748df25daa8bd96816a668ba](https://efx-trustless-data.herokuapp.com/api/v1/maker/0xf63246f4df508eba748df25daa8bd96816a668ba)
+  - [/api/v1/events/maker/0xf63246f4df508eba748df25daa8bd96816a668ba](https://efx-trustless-data.herokuapp.com/api/v1/events/maker/0xf63246f4df508eba748df25daa8bd96816a668ba)
     - Return all events where maker address is 0xf63246f4df508eba748df25daa8bd96816a668ba
 
-  -  [/api/v1/taker/0xf63246f4df508eba748df25daa8bd96816a668ba](https://efx-trustless-data.herokuapp.com/api/v1/taker/0xf63246f4df508eba748df25daa8bd96816a668ba)
+  -  [/api/v1/events/taker/0xf63246f4df508eba748df25daa8bd96816a668ba](https://efx-trustless-data.herokuapp.com/api/v1/events/taker/0xf63246f4df508eba748df25daa8bd96816a668ba)
     - Return all events where taker address is 0xf63246f4df508eba748df25daa8bd96816a668ba
 
   - [/api/v1/tokenRanking/ETH](https://efx-trustless-data.herokuapp.com/api/v1/tokenRanking/ETH)

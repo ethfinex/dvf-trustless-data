@@ -2,7 +2,7 @@ const { param, query } = require('express-validator');
 const isTimestamp = require('validate.io-timestamp')
 const validatorsAreMet = require('../../../../lib/http/validatorsAreMet')
 
-const Event = require('../../../../models/Event')
+const findEvents = require('../../../../models/methods/findEvents')
 
 /**
  * Return all Fill Events where maker.address matches given parameter

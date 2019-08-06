@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 
+// see: https://mongoosejs.com/docs/deprecations.html#-findandmodify-
+mongoose.set('useFindAndModify', false)
+
 module.exports = (mongoURI) => {
     const promise = mongoose.connect( mongoURI, {useNewUrlParser: true} )
 

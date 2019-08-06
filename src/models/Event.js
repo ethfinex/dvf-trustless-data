@@ -3,9 +3,13 @@ const Schema = mongoose.Schema
 
 const makerTakerSchema = new Schema({
   address: { type: String, index: true },
-  token: String,
+  token: { type: String, index: true },
   tokenAddress: String,
-  amount: Number
+  amount: Number,
+
+  // TODO: - add fields
+  // tokenPrice: Number,
+  // usdValue: Number
 }, {_id: false})
 
 const schema = new Schema({
@@ -27,20 +31,12 @@ const schema = new Schema({
   blockNumber: { type: Number, index: true },
 
   // timestamp and date from parent Block
-  timestamp: Number,
+  timestamp: { type: Number, index: true },
   date: { type: Date, index: true },
 
   // the date the document was created on the database
   createdAt: { type: Date, default: Date.now }
 });
-
-// make combination of "txHash + logIndex" unique, so there
-// is not the possibility of duplicating records between 
-// different updates and versions
-schema.index({ 
-  txHash: 1, 
-  logIndex: 1
-}, { unique: true })
 
 // TODO: set to false in production once the indexes are created?
 schema.set('autoIndex', true);

@@ -20,8 +20,12 @@ const getBlock = require('../src/lib/web3/getBlock')
 const getFillLogs = require('../src/lib/0x/getFillLogs')
 const saveFillLogs = require('../src/lib/0x/saveFillLogs')
 
+
+const calculateTokenRanking = require('../src/models/methods/calculateTokenRanking')
+
 nockBack( 'all-tests.json', nockDone => {
 
+  let httpServer = null
 
   before( async () => {
     await connectMongoose(process.env.MONGODB_URI) 
@@ -73,6 +77,24 @@ nockBack( 'all-tests.json', nockDone => {
       assert.equal(saved.events.length, await Event.countDocuments())
     })
 
+    it('calculate token ranking', async () => {
+      const ranking = await calculateTokenRanking('ETH')
+
+      // TODO: automated test for ranking, this test was validated manually
+      assert.equal(ranking[17].address, '0xd1480f6e2da2f39ea4323d93c0af0db5979227a2')
+      assert.equal(ranking[17].amount, 2.0464377233173687)
+    })
+
+    it('calculate token ranking for a given date', async () => {
+      const ranking = await calculateTokenRanking('ETH')
+
+      // TODO: automated test for ranking, this test was validated manually
+      assert.equal(ranking[17].address, '0xd1480f6e2da2f39ea4323d93c0af0db5979227a2')
+      assert.equal(ranking[17].amount, 2.0464377233173687)
+    })
+
   })
+
+
 
 })

@@ -7,12 +7,4 @@ connectMongoose(process.env.MONGODB_URI)
 
 const syncDatabase = require('./jobs/syncDatabase')
 
-syncDatabase()
-
-// watch for new blocks and log data
-//const job = require('./jobs/everyBlock')
-//job()
-
-// log previous data
-//const cache = require('./jobs/cachePreviousBlocks')
-//cache()
+// syncDatabase()

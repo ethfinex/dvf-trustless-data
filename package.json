@@ -19,16 +19,17 @@
     "moment": "^2.23.0",
     "mongodb": "^3.1.10",
     "mongoose": "^5.6.7",
-    "nock": "^10.0.6",
     "node-cron": "^2.0.3",
     "request-promise": "^4.2.2",
     "sleep-promise": "^8.0.1",
+    "validate.io-timestamp": "^1.0.2",
     "web3": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "env-cmd": "^8.0.2",
     "mocha": "^5.2.0",
+    "nock": "^10.0.6",
     "nodemon": "^1.18.9",
     "supertest": "^4.0.2"
   }

@@ -19,6 +19,7 @@ const schema = new Schema({
 
     // feeRecipientAddress contract address
     feeRecipientAddress: String, 
+    
     numTransactions:  Number,
 
     // referenfce to Transactions model

@@ -5,7 +5,7 @@ const validatorsAreMet = require('../../../lib/http/validatorsAreMet')
 const Transaction = require('../../../models/Transaction')
 
 module.exports = (server) => {
-  server.get('/api/v1/transactions/:txHash', [
+  server.get('/api/v1/transaction/:txHash', [
     param('txHash').isString(),
 
     validatorsAreMet

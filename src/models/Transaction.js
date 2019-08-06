@@ -9,19 +9,21 @@ const schema = new Schema({
     gasPrice: Number,
     priceETH: Number, // the price of this transaction in ETH
 
+    // TODO: add
+    //   - ETHUsdPrice : ETH USD price at this block
+    //   - priceUSD    : USD value paid in Gas
+
     // block number
     blockNumber: { type: Number, index: true },
     
+    // block time
     timestamp:  Number,
     date: { type: Date, index: true },
-
-    // exchangeWrapper contract address
-    exchangeWrapper: String, 
 
     // total events (settements) executed
     numEvents:  Number,
 
-    // referenfce to Transactions model
+    // reference to Transactions model
     events : [{ type : String, ref : 'Event' }],
 
     // the date the document was created on the database

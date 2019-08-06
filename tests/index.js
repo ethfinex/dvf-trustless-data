@@ -80,17 +80,21 @@ nockBack( 'all-tests.json', nockDone => {
     it('calculate token ranking', async () => {
       const ranking = await calculateTokenRanking('ETH')
 
-      // TODO: automated test for ranking, this test was validated manually
-      assert.equal(ranking[17].address, '0xd1480f6e2da2f39ea4323d93c0af0db5979227a2')
-      assert.equal(ranking[17].amount, 2.0464377233173687)
+      assert.equal(ranking.length, 22)
+      assert.equal(ranking[16].address, '0xd1480f6e2da2f39ea4323d93c0af0db5979227a2')
+      assert.equal(ranking[16].amount, 2.0464377233173687)
     })
 
+    // TODO: write a test for a query with startDate and endDate
     it('calculate token ranking for a given date', async () => {
-      const ranking = await calculateTokenRanking('ETH')
+      const startDate = 1564620468 // 2019-08-01 00:47:48.000Z
+      const endDate = 1564620469   // 2019-08-01 00:47:49.000Z
 
-      // TODO: automated test for ranking, this test was validated manually
-      assert.equal(ranking[17].address, '0xd1480f6e2da2f39ea4323d93c0af0db5979227a2')
-      assert.equal(ranking[17].amount, 2.0464377233173687)
+      const ranking = await calculateTokenRanking('ETH', startDate, endDate)
+
+      assert.equal(ranking.length, 1)
+      assert.equal(ranking[0].address, '0xf63246f4df508eba748df25daa8bd96816a668ba')
+      assert.equal(ranking[0].amount, 0.9186519439482634)
     })
 
   })

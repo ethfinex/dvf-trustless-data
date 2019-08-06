@@ -5,7 +5,7 @@ const State = require('../models/State')
 const getBlock = require('../lib/web3/getBlock')
 
 const getFillLogs = require('../lib/0x/getFillLogs')
-const saveFillLogs = require('../lib/0x/saveFillLogs')
+const saveFillLogs = require('../lib/efx/saveFillLogs')
 
 // blocks behind latest block we will be scanning, for instance
 // if latest block is 100 we will be getting the logs until block 93

@@ -13,15 +13,32 @@
 
 # Example endpoints
 
-  - return an specific block: /api/v1/block/8232895
+  - [/api/v1/block/8232895](https://efx-trustless-data.herokuapp.com/api/v1/block/8232895)
+    - Return information for block #8232895
 
-  - return an specific tx: /api/v1/transactions/0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110
+  - [/api/v1/transaction/0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110](https://efx-trustless-data.herokuapp.com/api/v1/transaction/0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110)
+    - Return information for transaction hash: 0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110
 
-  - return an specific event: /api/v1/events/0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110-45
+  - [/api/v1/events/0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110-45](https://efx-trustless-data.herokuapp.com/api/v1/events/0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110-45)
+    - Return information for event id: 0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110-45
 
-  - return all events where address is a maker /api/v1/maker/0xf63246f4df508eba748df25daa8bd96816a668ba
+  - [/api/v1/maker/0xf63246f4df508eba748df25daa8bd96816a668ba](https://efx-trustless-data.herokuapp.com/api/v1/maker/0xf63246f4df508eba748df25daa8bd96816a668ba)
+    - Return all events where maker address is 0xf63246f4df508eba748df25daa8bd96816a668ba
 
-  - return all events where address is a taker /api/v1/maker/0xf63246f4df508eba748df25daa8bd96816a668ba
+  -  [/api/v1/taker/0xf63246f4df508eba748df25daa8bd96816a668ba](https://efx-trustless-data.herokuapp.com/api/v1/taker/0xf63246f4df508eba748df25daa8bd96816a668ba)
+    - Return all events where taker address is 0xf63246f4df508eba748df25daa8bd96816a668ba
+
+  - [/api/v1/tokenRanking/ETH](https://efx-trustless-data.herokuapp.com/api/v1/tokenRanking/ETH)
+    - Return all time volume ranking quoted in ETH
+    - Providing `startDate` unix timestamp in millieconds ) for 18/07/2019 UTC-0
+    - Providing `endDate` unix timestamp in millieconds ) for 25/07/2019 UTC-0
+
+  - [/api/v1/tokenRanking/ETH?startDate=1564620468000&endDate=1564620469000](https://efx-trustless-data.herokuapp.com/api/v1/tokenRanking/ETH?startDate=1564620468000&endDate=1564620469000)
+    - Return volume ranking quoted in ETH
+    - Providing `startDate` unix timestamp in millieconds ) for 2019-08-01 00:47:48.000Z
+    - Providing `endDate` unix timestamp in millieconds ) for 2019-08-01 00:47:49.000Z
+
+
 
 # Example reports
 

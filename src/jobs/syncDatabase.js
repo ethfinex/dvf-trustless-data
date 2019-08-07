@@ -9,7 +9,7 @@ const saveFillLogs = require('../lib/efx/saveFillLogs')
 
 // blocks behind latest block we will be scanning, for instance
 // if latest block is 100 we will be getting the logs until block 93
-const WAIT_BLOCKS_TO_CONFIRM = 7
+const WAIT_BLOCKS_TO_CONFIRM = 0
 
 // - Block #8062292 is the last block from June/2019
 // - chunkSize is the amount of blocks scanned at at time.
@@ -18,6 +18,7 @@ module.exports = sync = async (
   fromBlockNumber = 8062292, 
   chunkSize = 15 * 4 * 60
 ) => {
+  
   
   const config = await getEfxConfig()
 

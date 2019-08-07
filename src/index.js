@@ -1,4 +1,8 @@
+const BigNumber = require('bignumber.js')
 const connectMongoose = require('./models/mongoose')
+
+// set decimal places to 18
+BigNumber.config({ DECIMAL_PLACES: 18 })
 
 // imports and initiates server
 const server = require('./server')

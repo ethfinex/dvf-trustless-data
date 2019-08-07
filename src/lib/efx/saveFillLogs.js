@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const Block = require('../../models/Block')
 const Transaction = require('../../models/Transaction')
 const Event = require('../../models/Event')
@@ -112,6 +113,10 @@ module.exports = async (logs) => {
 
   }
 
+  // create mongodb transaction
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   if(blockDocs.length){
     try{
       await Block.collection.insertMany(blockDocs)
@@ -119,6 +124,9 @@ module.exports = async (logs) => {
       // console.log(`- inserted ${blockDocs.length} Block documents`)
     } catch (e) {
       console.log("Error inserting Block docs ->", e)
+      session.abortTransaction()
+      session.endSession();
+      throw(e)
     }  
   }
 
@@ -129,6 +137,9 @@ module.exports = async (logs) => {
       // console.log(`- inserted ${transactionDocs.length} Transaction documents`)
     } catch (e) {
       console.log("Error inserting Transaction docs ->", e)
+      session.abortTransaction()
+      session.endSession();
+      throw(e)
     }
   }
 
@@ -139,10 +150,13 @@ module.exports = async (logs) => {
       // console.log(`- inserted ${eventDocs.length} Event documents`)
     } catch (e) {
       console.log("Error inserting Event docs ->", e)
+      session.abortTransaction()
+      session.endSession();
+      throw(e)
     }
   }
 
-
+  session.endSession();
 
   return {
     blocks: blockDocs,

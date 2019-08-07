@@ -59,9 +59,11 @@
 
 # Example reports
 
-  - TODO - user volume ranking in USD value and per coin
+  - TODO - Improve caching logic for all endpoints, perhaps even save
+  some data such as
+    - 24 hours volume for past days permanetly
 
-  - TODO - ....
+  - TODO - Write better tests for all endpoins
 
 ## Developing
 

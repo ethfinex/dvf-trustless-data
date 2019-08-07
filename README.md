@@ -65,6 +65,8 @@
 
   - TODO - Write better tests for all endpoins
 
+  - TODO - Custom error page
+
 ## Developing
 
 1. `npm run develop`

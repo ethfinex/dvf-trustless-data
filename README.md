@@ -36,8 +36,11 @@
     - Providing `startDate` unix timestamp in millieconds ) for Tue Aug 06 2019 14:26:18 GMT+0100
     - Providing `endDate` unix timestamp in millieconds ) for Wed Aug 07 2019 14:26:28 GMT+0100
 
+  - [/api/v1/USDRanking](/api/v1/USDRanking)
+    - Return all time volume ranking ( for all tokens together ) quoted in USD
+
   - [/api/v1/USDRanking?startDate=1565097982081&endDate=1565184391511](/api/v1/USDRanking?startDate=1565097982081&endDate=1565184391511)
-    - Return volume ranking quoted in ETH
+    - Return volume ranking ( for all tokens together ) quoted in USD
     - Providing `startDate` unix timestamp in millieconds ) for Tue Aug 06 2019 14:26:18 GMT+0100
     - Providing `endDate` unix timestamp in millieconds ) for Wed Aug 07 2019 14:26:28 GMT+0100
 

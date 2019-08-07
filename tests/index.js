@@ -22,13 +22,14 @@ const saveFillLogs = require('../src/lib/efx/saveFillLogs')
 
 
 const calculateTokenRanking = require('../src/models/methods/calculateTokenRanking')
+const calculateVolume = require('../src/models/methods/calculateVolume')
 
 nockBack( 'all-tests.json', nockDone => {
 
   let httpServer = null
 
   before( async () => {
-    await connectMongoose(process.env.MONGODB_URI) 
+    await connectMongoose(process.env.MONGODB_URI)
 
     await mongoose.connection.db.dropDatabase()
   })
@@ -63,7 +64,7 @@ nockBack( 'all-tests.json', nockDone => {
     })
 
   })
-  
+
   describe('~ trustless-data', async () => {
 
     it('config is being fetched from ethfinex api', async () => {
@@ -72,9 +73,8 @@ nockBack( 'all-tests.json', nockDone => {
 
       // assert tokenRegistry contains tokens
       assert.ok(Object.keys(config.tokenRegistry))
-
-      // TODO: test more conditions to validate if config is being fetched
-      // correctly
+      assert.equal(config.protocol, "0x")
+      assert.equal(config.ethfinexAddress, "0x61b9898c9b60a159fc91ae8026563cd226b7a0c1")
     })
 
     it('grab current block', async () => {
@@ -127,6 +127,16 @@ nockBack( 'all-tests.json', nockDone => {
       console.log('ranking ', ranking)
       assert.equal(ranking[0].address, '0xf63246f4df508eba748df25daa8bd96816a668ba')
       assert.equal(ranking[0].amount, 0.050125313283260954)
+    })
+
+    it('calculate 24 hour volume for a given date', async () => {
+      const startDate = 1564234294 // 2019-07-27 13:31:34.000Z
+      const endDate = 1564234295   // 2019-07-27 13:31:35.000Z
+
+      const volume = await calculateVolume(startDate, endDate)
+
+      console.log('volume ', volume)
+      assert.equal(volume[0].totalUSDValue, 0.050125313283260954')
     })
 
   })

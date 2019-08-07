@@ -7,10 +7,10 @@ module.exports = async (startDate, endDate) => {
 
   // fetch all events during startDate and endDate
   const query = {}
-  const events = await findEvents(query, startDate)
+  const events = await findEvents(query, startDate, endDate)
 
   const tokenVolumes = {}
-  
+
   // total USDWorth for all trades
   let USDWorth = new BigNumber(0)
 

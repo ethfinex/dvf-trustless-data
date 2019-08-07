@@ -1,5 +1,4 @@
-const { param } = require('express-validator');
-const isTimestamp = require('validate.io-timestamp')
+const { param } = require('express-validator')
 const validatorsAreMet = require('../../../lib/http/validatorsAreMet')
 
 const moment = require('moment')
@@ -7,7 +6,6 @@ const moment = require('moment')
 const cacheFunction = require('../../../lib/cache/cacheFunction')
 
 const calculateVolume = require('../../../models/methods/calculateVolume')
-
 
 /**
  * Return 24 Hours volume for each token and also TotalUSDValue
@@ -20,7 +18,6 @@ module.exports = (server) => {
 
     validatorsAreMet
   ], async (req, res) => {
-
     const year = req.params.year
     const month = req.params.month
     const day = req.params.day
@@ -52,7 +49,7 @@ module.exports = (server) => {
       return result
     })
 
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'application/json')
     res.send(result || {error: 'not_found'})
-  } )
+  })
 }

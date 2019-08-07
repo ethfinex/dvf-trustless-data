@@ -6,8 +6,7 @@ const getHourlyCandle = require('./getHourlyCandle')
 const stableCoins = require('./stableCoins')
 
 module.exports = async (token, blockTimeStamp) => {
-
-  if(stableCoins[token]){
+  if (stableCoins[token]) {
     return 1
   }
 

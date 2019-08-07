@@ -5,7 +5,7 @@ const connectMongoose = require('./models/mongoose')
 BigNumber.config({ DECIMAL_PLACES: 18 })
 
 // imports and initiates server
-const server = require('./server')
+require('./server')
 
 connectMongoose(process.env.MONGODB_URI)
 

@@ -1,5 +1,4 @@
-const { param } = require('express-validator');
-const isTimestamp = require('validate.io-timestamp')
+const { param } = require('express-validator')
 const validatorsAreMet = require('../../../lib/http/validatorsAreMet')
 
 const moment = require('moment')
@@ -7,7 +6,6 @@ const moment = require('moment')
 const cacheFunction = require('../../../lib/cache/cacheFunction')
 
 const calculateVolumeForAddress = require('../../../models/methods/calculateVolumeForAddress')
-
 
 /**
  * Return 30 days USD Volume for a given address
@@ -18,7 +16,6 @@ module.exports = (server) => {
 
     validatorsAreMet
   ], async (req, res) => {
-
     // start date is 30 days ago
     const startDate = moment().subtract(30, 'days').valueOf() / 1000
 
@@ -36,7 +33,7 @@ module.exports = (server) => {
       return result
     })
 
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'application/json')
     res.send(result || {error: 'not_found'})
-  } )
+  })
 }

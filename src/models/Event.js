@@ -5,7 +5,7 @@ const makerTakerSchema = new Schema({
   address: { type: String, index: true },
   token: { type: String, index: true },
   tokenAddress: String,
-  amount: Number,
+  amount: Number
 }, {_id: false})
 
 const schema = new Schema({
@@ -15,12 +15,12 @@ const schema = new Schema({
   type: String, // so far we only have "Fill"
 
   logIndex: Number,
-  
+
   maker: { type: makerTakerSchema },
 
   taker: { type: makerTakerSchema },
 
-  // the USD value of this transaction based on 1H candle open price 
+  // the USD value of this transaction based on 1H candle open price
   // for this block
   USDValue: Number,
 
@@ -36,9 +36,9 @@ const schema = new Schema({
 
   // the date the document was created on the database
   createdAt: { type: Date, default: Date.now }
-});
+})
 
 // TODO: set to false in production once the indexes are created?
-schema.set('autoIndex', true);
+schema.set('autoIndex', true)
 
 module.exports = mongoose.model('Event', schema)

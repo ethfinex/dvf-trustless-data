@@ -1,4 +1,4 @@
-const { param, query } = require('express-validator');
+const { param, query } = require('express-validator')
 const isTimestamp = require('validate.io-timestamp')
 const validatorsAreMet = require('../../../lib/http/validatorsAreMet')
 
@@ -18,10 +18,9 @@ module.exports = (server) => {
     query('endDate').optional().isInt().toInt().custom((timestamp) => {
       return isTimestamp(timestamp)
     }).withMessage('invalid timestamp'),
-    
+
     validatorsAreMet
   ], async (req, res) => {
-
     const token = req.params.token
 
     const startDate = req.query.startDate ? req.query.startDate / 1000 : null
@@ -29,7 +28,7 @@ module.exports = (server) => {
 
     const result = await calculateTokenRanking(token, startDate, endDate)
 
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'application/json')
     res.send(result || {error: 'not_found'})
-  } )
+  })
 }

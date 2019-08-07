@@ -9,21 +9,19 @@ const getPrice = require('../bfx/getPrice')
 const stableCoins = require('../bfx/stableCoins')
 
 /**
- * 
+ *
  * Save fill logs captured by ../0x/getFillLogs ads Market Price where
  * necessary then save to mongodb
- * 
+ *
  */
 module.exports = async (logs) => {
-
   // list of mongoose's Block documents
   const blockDocs = []
   const transactionDocs = []
   const eventDocs = []
 
-  for(const blockNumber in logs){
-
-    // TODO: do we 'need' to be immutable here? 
+  for (const blockNumber in logs) {
+    // TODO: do we 'need' to be immutable here?
     const block = _.clone(logs[blockNumber])
 
     block.number = blockNumber
@@ -38,8 +36,7 @@ module.exports = async (logs) => {
 
     blockDocs.push(doc)
 
-    for(const txHash in block.transactions) {
-
+    for (const txHash in block.transactions) {
       const tx = block.transactions[txHash]
 
       tx._id = txHash
@@ -63,11 +60,11 @@ module.exports = async (logs) => {
       tx.ETHUSDPrice = price
 
       tx.priceETH = (tx.gasUsed * tx.gasPrice) / 1e18 // amount of ETH paid
-      tx.priceUSD = tx.priceETH * tx.ETHUSDPrice       // amount paid in USD
+      tx.priceUSD = tx.priceETH * tx.ETHUSDPrice // amount paid in USD
 
       const doc = new Transaction(_.omit(tx, 'events'))
 
-      const eventIds = tx.events.map((event) => txHash + '-' + event.logIndex )
+      const eventIds = tx.events.map((event) => txHash + '-' + event.logIndex)
 
       doc.events = eventIds
 
@@ -75,8 +72,7 @@ module.exports = async (logs) => {
 
       transactionDocs.push(doc)
 
-      for(const index in tx.events){
-
+      for (const index in tx.events) {
         const event = tx.events[index]
 
         event._id = txHash + '-' + event.logIndex
@@ -90,9 +86,9 @@ module.exports = async (logs) => {
         event.date = block.date
 
         // if the taker Token is a stable coin
-        if(stableCoins[event.maker.token]){
+        if (stableCoins[event.maker.token]) {
           event.USDValue = event.maker.amount * 1
-        } else if(stableCoins[event.taker.token]){
+        } else if (stableCoins[event.taker.token]) {
           event.USDValue = event.taker.amount * 1
         } else {
           const price = await getPrice(event.taker.token, block.timestamp)
@@ -105,64 +101,60 @@ module.exports = async (logs) => {
 
         eventDocs.push(doc)
       }
-
     }
 
     // console.log('blockNumber ->', blockNumber)
     // console.log('block ->', block)
-
   }
 
   // create mongodb transaction
-  const session = await mongoose.startSession();
-  session.startTransaction();
+  const session = await mongoose.startSession()
+  session.startTransaction()
 
-  if(blockDocs.length){
-    try{
+  if (blockDocs.length) {
+    try {
       await Block.collection.insertMany(blockDocs)
-  
+
       // console.log(`- inserted ${blockDocs.length} Block documents`)
     } catch (e) {
-      console.log("Error inserting Block docs ->", e)
+      console.log('Error inserting Block docs ->', e)
       session.abortTransaction()
-      session.endSession();
-      throw(e)
-    }  
+      session.endSession()
+      throw (e)
+    }
   }
 
-  if(transactionDocs.length){
-    try{
+  if (transactionDocs.length) {
+    try {
       await Transaction.collection.insertMany(transactionDocs)
-  
+
       // console.log(`- inserted ${transactionDocs.length} Transaction documents`)
     } catch (e) {
-      console.log("Error inserting Transaction docs ->", e)
+      console.log('Error inserting Transaction docs ->', e)
       session.abortTransaction()
-      session.endSession();
-      throw(e)
+      session.endSession()
+      throw (e)
     }
   }
 
-  if(eventDocs.length){
-    try{
+  if (eventDocs.length) {
+    try {
       await Event.collection.insertMany(eventDocs)
-  
+
       // console.log(`- inserted ${eventDocs.length} Event documents`)
     } catch (e) {
-      console.log("Error inserting Event docs ->", e)
+      console.log('Error inserting Event docs ->', e)
       session.abortTransaction()
-      session.endSession();
-      throw(e)
+      session.endSession()
+      throw (e)
     }
   }
 
-  session.endSession();
+  session.endSession()
 
   return {
     blocks: blockDocs,
     transactions: transactionDocs,
     events: eventDocs
   }
-  
-
 }

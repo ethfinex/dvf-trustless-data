@@ -1,19 +1,18 @@
-const NodeCache = require( "node-cache" )
+const NodeCache = require('node-cache')
 
 const caches = {}
 
 module.exports = async (cacheKey, ttlSeconds, resultFunction) => {
-
-  if(!caches[cacheKey]){
+  if (!caches[cacheKey]) {
     caches[cacheKey] = new NodeCache({
-      stdTTL     : ttlSeconds, 
-      checkperiod: ttlSeconds / 10 
-    });
+      stdTTL: ttlSeconds,
+      checkperiod: ttlSeconds / 10
+    })
   }
 
   const cached = caches[cacheKey].get(cacheKey)
 
-  if(cached){
+  if (cached) {
     return cached
   }
 

@@ -12,17 +12,16 @@ const sleep = require('sleep-promise')
 const {get} = require('request-promise')
 const moment = require('moment')
 
-const NodeCache = require( "node-cache" )
+const NodeCache = require('node-cache')
 
 // stdTTL: 1 HOUR means daa will be cached for 1 hour
 // checkperiod: 10 minutes means every 10 minutes we check if we need to flush
-const candleCache = new NodeCache( { stdTTL: 60 * 60, checkperiod: 60 * 10 } );
+const candleCache = new NodeCache({ stdTTL: 60 * 60, checkperiod: 60 * 10 })
 
 /**
  * Look for OPEN price for the closest 1H candle
  */
 module.exports = async (token, blockTimeStamp) => {
-
   const symbol = `t${token}USD`
 
   // get timestamp for the start of the hourly candle for this timestamp
@@ -31,7 +30,7 @@ module.exports = async (token, blockTimeStamp) => {
   let candle = candleCache.get(symbol + timestamp)
 
   // sets .cached property to true when candle comes from cache
-  if(candle){
+  if (candle) {
     candle.cached = true
     return candle
   }
@@ -43,34 +42,32 @@ module.exports = async (token, blockTimeStamp) => {
   let retries = 0
   let maxRetries = 50
 
-  while(candle == null) {
-
+  while (candle == null) {
     try {
       candle = await get(url, {json: true})
       candle = candle[0]
 
       // caches candle
       candleCache.set(symbol + timestamp, candle)
-    } catch(e) {
+    } catch (e) {
+      console.log('')
 
-      console.log("")
-
-      if(e.statusCode == 429){
-        console.log( "- rate limited by bfx API")
+      if (e.statusCode === 429) {
+        console.log('- rate limited by bfx API')
       } else {
-        console.log("error getting daily candle for: ", symbol)
+        console.log('error getting daily candle for: ', symbol)
         console.log(e)
       }
 
-      if(retries >= maxRetries){
-        throw(e)
+      if (retries >= maxRetries) {
+        throw (e)
       }
 
-      console.log("retrying in 5000ms")
-      console.log("")
-  
+      console.log('retrying in 5000ms')
+      console.log('')
+
       retries += 1
-  
+
       await sleep(5000 * retries)
     }
   }

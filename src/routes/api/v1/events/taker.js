@@ -1,4 +1,4 @@
-const { param, query } = require('express-validator');
+const { param, query } = require('express-validator')
 const isTimestamp = require('validate.io-timestamp')
 const validatorsAreMet = require('../../../../lib/http/validatorsAreMet')
 
@@ -18,15 +18,14 @@ module.exports = (server) => {
 
     validatorsAreMet
   ], async (req, res) => {
-
     const query = { 'taker.address': req.params.address }
-    
+
     const startDate = req.query.startDate ? req.query.startDate / 1000 : null
     const endDate = req.query.endDate ? req.query.endDate / 1000 : null
 
     const result = await findEvents(query, startDate, endDate)
 
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'application/json')
     res.send(result || {error: 'not_found'})
-  } )
+  })
 }

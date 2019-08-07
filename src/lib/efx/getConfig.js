@@ -10,15 +10,14 @@ let config = {
   configUrl: 'https://api.ethfinex.com/trustless/v1/r/get/conf',
   tokenMap: {}, // maps tokenAddress to token symbol
   exchangeAddress: '', // fetched from the API
-  tokenRegistry: {}, // fetched from the API
+  tokenRegistry: {} // fetched from the API
 }
 
 let cached = false
 
 module.exports = async (reload = false) => {
-
   // only fetch config once per execution
-  if(cached && !reload) {
+  if (cached && !reload) {
     return config
   }
 
@@ -28,7 +27,7 @@ module.exports = async (reload = false) => {
 
   config = {
     ...config,
-    ...efxConfig['0x'],
+    ...efxConfig['0x']
   }
 
   config.web3 = new Web3(config.web3ProviderUrl)
@@ -42,7 +41,7 @@ module.exports = async (reload = false) => {
     config.networkId,
     null,
     null,
-    config.exchangeAddress,
+    config.exchangeAddress
   )
 
   return config

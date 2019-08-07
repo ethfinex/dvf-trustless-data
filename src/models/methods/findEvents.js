@@ -1,12 +1,12 @@
 const Event = require('../Event')
 
 module.exports = (query = {}, startDate, endDate) => {
-  if(startDate){
+  if (startDate) {
     query.timestamp = query.timestamp || {}
     query.timestamp['$gte'] = startDate
   }
 
-  if(endDate){
+  if (endDate) {
     query.timestamp = query.timestamp || {}
     query.timestamp['$lte'] = endDate
   }

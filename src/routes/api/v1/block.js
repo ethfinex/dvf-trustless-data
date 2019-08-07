@@ -1,4 +1,4 @@
-const { param } = require('express-validator');
+const { param } = require('express-validator')
 
 const validatorsAreMet = require('../../../lib/http/validatorsAreMet')
 
@@ -10,11 +10,10 @@ module.exports = (server) => {
 
     validatorsAreMet
   ], async (req, res) => {
-
     const query = {
-        number: req.params.blockNumber
+      number: req.params.blockNumber
     }
-    
+
     // const result = await Block.findOne(query)
 
     // TODO: shall we populate the transactions when querying for block?
@@ -27,7 +26,7 @@ module.exports = (server) => {
         }
       })
 
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'application/json')
     res.send(result || {error: 'not_found'})
-  } )
+  })
 }

@@ -19,14 +19,13 @@ module.exports = async (token, startDate, endDate) => {
     volumes[address] = volumes[address].plus(amount)
   }
 
-  for(const event of events){
-
-    if(event.maker.token == token){
+  for (const event of events) {
+    if (event.maker.token === token) {
       computeTrade(event.maker.address, event.maker.amount)
       computeTrade(event.taker.address, event.maker.amount)
     }
 
-    if(event.taker.token == token){
+    if (event.taker.token === token) {
       computeTrade(event.maker.address, event.taker.amount)
       computeTrade(event.taker.address, event.taker.amount)
     }
@@ -37,13 +36,11 @@ module.exports = async (token, startDate, endDate) => {
 
   const ranking = []
 
-  for(const address in volumes){
-
+  for (const address in volumes) {
     ranking.push({
       address: address,
-      amount : volumes[address].toNumber()
+      amount: volumes[address].toNumber()
     })
-
   }
 
   const orderedRanking = _.orderBy(ranking, 'amount').reverse()

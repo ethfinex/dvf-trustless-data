@@ -2,33 +2,33 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const schema = new Schema({
-    // we use txHash as _id
-    _id : { type: String },
+  // we use txHash as _id
+  _id: { type: String },
 
-    gasUsed: Number,
-    gasPrice: Number,
-    priceETH: Number, // the price of this transaction in ETH
-    priceUSD: Number, // the price of this transaction in USD
-    ETHUSDPrice: Number, // ETHUSD Price used for this calculation
+  gasUsed: Number,
+  gasPrice: Number,
+  priceETH: Number, // the price of this transaction in ETH
+  priceUSD: Number, // the price of this transaction in USD
+  ETHUSDPrice: Number, // ETHUSD Price used for this calculation
 
-    // block number
-    blockNumber: { type: Number, index: true },
-    
-    // block time
-    timestamp:  Number,
-    date: { type: Date, index: true },
+  // block number
+  blockNumber: { type: Number, index: true },
 
-    // total events (settements) executed
-    numEvents:  Number,
+  // block time
+  timestamp: Number,
+  date: { type: Date, index: true },
 
-    // reference to Transactions model
-    events : [{ type : String, ref : 'Event' }],
+  // total events (settements) executed
+  numEvents: Number,
 
-    // the date the document was created on the database
-    createdAt: { type: Date, default: Date.now }
-});
+  // reference to Transactions model
+  events: [{ type: String, ref: 'Event' }],
+
+  // the date the document was created on the database
+  createdAt: { type: Date, default: Date.now }
+})
 
 // TODO: set to false in production once the indexes are created?
-schema.set('autoIndex', true);
+schema.set('autoIndex', true)
 
 module.exports = mongoose.model('Transaction', schema)

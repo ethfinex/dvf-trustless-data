@@ -17,11 +17,9 @@ module.exports = async (startDate, endDate) => {
     volumes[address] = volumes[address].plus(amount)
   }
 
-  for(const event of events){
-
+  for (const event of events) {
     computeTrade(event.maker.address, event.USDValue)
     computeTrade(event.taker.address, event.USDValue)
-
   }
 
   // remove ethfinex address from ranking
@@ -29,13 +27,11 @@ module.exports = async (startDate, endDate) => {
 
   const ranking = []
 
-  for(const address in volumes){
-
+  for (const address in volumes) {
     ranking.push({
       address: address,
-      USDValue : volumes[address].toNumber()
+      USDValue: volumes[address].toNumber()
     })
-
   }
 
   const orderedRanking = _.orderBy(ranking, 'USDValue').reverse()

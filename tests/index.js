@@ -124,7 +124,6 @@ nockBack( 'all-tests.json', nockDone => {
 
       const ranking = await calculateTokenRanking('ETH', startDate, endDate)
 
-      console.log('ranking ', ranking)
       assert.equal(ranking[0].address, '0xf63246f4df508eba748df25daa8bd96816a668ba')
       assert.equal(ranking[0].amount, 0.050125313283260954)
     })
@@ -135,8 +134,7 @@ nockBack( 'all-tests.json', nockDone => {
 
       const volume = await calculateVolume(startDate, endDate)
 
-      console.log('volume ', volume)
-      assert.equal(volume[0].totalUSDValue, 0.050125313283260954')
+      assert.equal(volume.tokens.ETH.tokenAmount, 0.050125313283260954)
     })
 
   })

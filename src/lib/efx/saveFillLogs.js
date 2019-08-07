@@ -62,7 +62,7 @@ module.exports = async (logs) => {
       // use candle open as price
       tx.ETHUSDPrice = price
 
-      tx.priceETH = (tx.gasUsed * tx.gasPrice) / 10e18 // amount of ETH paid
+      tx.priceETH = (tx.gasUsed * tx.gasPrice) / 1e18 // amount of ETH paid
       tx.priceUSD = tx.priceETH * tx.ETHUSDPrice       // amount paid in USD
 
       const doc = new Transaction(_.omit(tx, 'events'))

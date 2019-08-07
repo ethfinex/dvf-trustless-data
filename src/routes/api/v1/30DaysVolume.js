@@ -23,9 +23,13 @@ module.exports = (server) => {
     const startDate = moment().subtract(30, 'days').valueOf() / 1000
 
     const address = req.params.address
-    const cacheKey = '30DaysVolume-' + address
 
-    const result = await cacheFunction(cacheKey, 60, async () => {
+    // key we will use to cache this calculation
+    const cacheKey = '30DaysVolume:' + address
+    // cache calculation for 1 Hour
+    const cacheTime = 60 * 60
+
+    const result = await cacheFunction(cacheKey, cacheTime, async () => {
       const result = await calculateVolumeForAddress(address, startDate)
       result.startDate = moment(startDate * 1000).toDate()
 

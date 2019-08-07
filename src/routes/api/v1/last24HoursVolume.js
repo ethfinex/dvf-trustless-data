@@ -20,7 +20,12 @@ module.exports = (server) => {
     // start date is 24 hours ago
     const startDate = moment().subtract(24, 'hours').valueOf() / 1000
 
-    const result = await cacheFunction('last24Hours', 60, async () => {
+    // key we will use to cache this calculation
+    const cacheKey = 'last24Hours'
+    // cache calculation for 1 Hour
+    const cacheTime = 60
+
+    const result = await cacheFunction(cacheKey, cacheTime, async () => {
       const result = await calculateVolume(startDate)
       result.startDate = moment(startDate * 1000).toDate()
 

@@ -54,8 +54,13 @@ module.exports = async (token, blockTimeStamp) => {
     } catch(e) {
 
       console.log("")
-      console.log("error getting daily candle for: ", symbol)
-      console.log(e)
+
+      if(e.statusCode == 429){
+        console.log( "- rate limited by bfx API")
+      } else {
+        console.log("error getting daily candle for: ", symbol)
+        console.log(e)
+      }
 
       if(retries >= maxRetries){
         throw(e)

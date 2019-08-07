@@ -38,7 +38,12 @@
     - Providing `startDate` unix timestamp in millieconds ) for 2019-08-01 00:47:48.000Z
     - Providing `endDate` unix timestamp in millieconds ) for 2019-08-01 00:47:49.000Z
 
+  - [/api/v1/last24HoursVolume](https://efx-trustless-data.herokuapp.com/api/v1/last24HoursVolume)
+    - Return last 24 hours volume for all tokens
+    - Return last 24 hours USD Worth ( counting both sides of the trade)
 
+  - [/api/v1/30DaysVolume/0xf63246f4df508eba748df25daa8bd96816a668ba](https://efx-trustless-data.herokuapp.com/api/v1/30DaysVolume/0xf63246f4df508eba748df25daa8bd96816a668ba)
+    - Return last 30 days volume for 0xf63246f4df508eba748df25daa8bd96816a668ba
 
 # Example reports
 

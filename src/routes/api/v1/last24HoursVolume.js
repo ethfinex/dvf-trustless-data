@@ -13,7 +13,7 @@ const calculateVolume = require('../../../models/methods/calculateVolume')
  * Return 24 Hours volume for each token and also TotalUSDValue
  */
 module.exports = (server) => {
-  server.get('/api/v1/last24Hours', [
+  server.get('/api/v1/last24HoursVolume', [
     validatorsAreMet
   ], async (req, res) => {
 

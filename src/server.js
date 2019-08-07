@@ -22,7 +22,7 @@ require('./routes/api/v1/events/taker')(server)
 
 require('./routes/api/v1/tokenRanking')(server)
 
-require('./routes/api/v1/last24Hours')(server)
+require('./routes/api/v1/last24HoursVolume')(server)
 
 require('./routes/api/v1/30DaysVolume')(server)
 

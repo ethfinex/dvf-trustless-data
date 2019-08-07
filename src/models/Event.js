@@ -6,10 +6,6 @@ const makerTakerSchema = new Schema({
   token: { type: String, index: true },
   tokenAddress: String,
   amount: Number,
-
-  // TODO: - add fields
-  // tokenPrice: Number,
-  // usdValue: Number
 }, {_id: false})
 
 const schema = new Schema({
@@ -23,6 +19,10 @@ const schema = new Schema({
   maker: { type: makerTakerSchema },
 
   taker: { type: makerTakerSchema },
+
+  // the USD value of this transaction based on 1H candle open price 
+  // for this block
+  USDValue: Number,
 
   // info from parent TX and Block
 

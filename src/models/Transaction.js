@@ -8,10 +8,8 @@ const schema = new Schema({
     gasUsed: Number,
     gasPrice: Number,
     priceETH: Number, // the price of this transaction in ETH
-
-    // TODO: add
-    //   - ETHUSDPrice : ETH USD price at this block
-    //   - priceUSD    : USD value paid in Gas
+    priceUSD: Number, // the price of this transaction in USD
+    ETHUSDPrice: Number, // ETHUSD Price used for this calculation
 
     // block number
     blockNumber: { type: Number, index: true },

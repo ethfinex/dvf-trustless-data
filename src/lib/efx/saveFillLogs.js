@@ -4,6 +4,9 @@ const Event = require('../../models/Event')
 
 const _ = require('lodash')
 
+const getPrice = require('../bfx/getPrice')
+const stableCoins = require('../bfx/stableCoins')
+
 /**
  * 
  * Save fill logs captured by ../0x/getFillLogs ads Market Price where
@@ -52,9 +55,14 @@ module.exports = async (logs) => {
       const numEvents = tx.events.length
 
       tx.numEvents = numEvents
-      tx.priceETH = (tx.gasUsed * tx.gasPrice) / 10e18 // amount of ETH paid
 
-      console.log("block time stamp ->", block.number, block.timestamp)
+      const price = await getPrice('ETH', block.timestamp)
+
+      // use candle open as price
+      tx.ETHUSDPrice = price
+
+      tx.priceETH = (tx.gasUsed * tx.gasPrice) / 10e18 // amount of ETH paid
+      tx.priceUSD = tx.priceETH * tx.ETHUSDPrice       // amount paid in USD
 
       const doc = new Transaction(_.omit(tx, 'events'))
 
@@ -79,6 +87,18 @@ module.exports = async (logs) => {
         event.timestamp = block.timestamp
 
         event.date = block.date
+
+        // if the taker Token is a stable coin
+        if(stableCoins[event.maker.token]){
+          event.USDValue = event.maker.amount * 1
+        } else if(stableCoins[event.taker.token]){
+          event.USDValue = event.taker.amount * 1
+        } else {
+          const price = await getPrice(event.taker.token, block.timestamp)
+
+          event.USDValue = price * event.taker.amount
+          // event[event.taker.token + 'USDPrice'] = price
+        }
 
         const doc = new Event(event)
 

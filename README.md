@@ -36,6 +36,11 @@
     - Providing `startDate` unix timestamp in millieconds ) for Tue Aug 06 2019 14:26:18 GMT+0100
     - Providing `endDate` unix timestamp in millieconds ) for Wed Aug 07 2019 14:26:28 GMT+0100
 
+  - [/api/v1/USDRanking?startDate=1565097982081&endDate=1565184391511](/api/v1/USDRanking?startDate=1565097982081&endDate=1565184391511)
+    - Return volume ranking quoted in ETH
+    - Providing `startDate` unix timestamp in millieconds ) for Tue Aug 06 2019 14:26:18 GMT+0100
+    - Providing `endDate` unix timestamp in millieconds ) for Wed Aug 07 2019 14:26:28 GMT+0100
+
   - [/api/v1/24HoursVolume/2019/08/01](https://efx-trustless-data.herokuapp.com/api/v1/24HoursVolume/2019/08/01)
     - Return last 24 hours volume for 01/08/2019
     - Cached for 24 hours

@@ -17,7 +17,7 @@ module.exports = (server) => {
     
     const result = await Transaction
       .findOne(query)
-      .populate('events', 'type maker taker')
+      .populate('events', 'USDValue type maker taker')
 
     res.setHeader('Content-Type', 'application/json');
     res.send(result || {error: 'not_found'})

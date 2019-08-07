@@ -23,7 +23,7 @@ module.exports = (server) => {
         path: 'transactions',
         populate: {
           path: 'events',
-          select: 'type maker taker'
+          select: 'type USDValue maker taker'
         }
       })
 

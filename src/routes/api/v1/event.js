@@ -5,7 +5,7 @@ const validatorsAreMet = require('../../../lib/http/validatorsAreMet')
 const Event = require('../../../models/Event')
 
 module.exports = (server) => {
-  server.get('/api/v1/events/:mongoId', [
+  server.get('/api/v1/event/:mongoId', [
     param('mongoId').isString(),
 
     validatorsAreMet

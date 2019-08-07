@@ -118,7 +118,7 @@ nockBack( 'all-tests.json', nockDone => {
     })
 
     // TODO: write a test for a query with startDate and endDate
-    it('calculate token ranking for a given date', async () => {
+    it('calculate token ranking for a given date period', async () => {
       const startDate = 1564234294 // 2019-07-27 13:31:34.000Z
       const endDate = 1564234295   // 2019-07-27 13:31:35.000Z
 
@@ -129,7 +129,7 @@ nockBack( 'all-tests.json', nockDone => {
       assert.equal(ranking[0].amount, 0.050125313283260954)
     })
 
-    it('calculate 24 hour volume for a given date', async () => {
+    it('calculate volume for a given date period', async () => {
       const startDate = 1564234294 // 2019-07-27 13:31:34.000Z
       const endDate = 1564234295   // 2019-07-27 13:31:35.000Z
 

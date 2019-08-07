@@ -63,7 +63,7 @@ module.exports = async (range) => {
       // every block carries exchangeWrapper and ethfinexAddress so they are
       // kept unique in the database in case it happens we need to scan
       // the same block for a different exchangeWrapper or feeRecipient
-      const block = await getBlock()
+      const block = await getBlock(log.blockNumber)
 
       blocks[log.blockNumber].timestamp = block.timestamp
       blocks[log.blockNumber].date = new Date(block.timestamp * 1000)
@@ -108,8 +108,6 @@ module.exports = async (range) => {
     events.push(event)
     
   }
-
-  // console.log( 'blocks ->', JSON.stringify(blocks, null, 2) )
 
   return blocks
 

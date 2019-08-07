@@ -18,6 +18,9 @@ const NodeCache = require( "node-cache" )
 // checkperiod: 10 minutes means every 10 minutes we check if we need to flush
 const candleCache = new NodeCache( { stdTTL: 60 * 60, checkperiod: 60 * 10 } );
 
+/**
+ * Look for OPEN price for the closest 1H candle
+ */
 module.exports = async (token, blockTimeStamp) => {
 
   const symbol = `t${token}USD`
@@ -30,6 +33,7 @@ module.exports = async (token, blockTimeStamp) => {
   // sets .cached property to true when candle comes from cache
   if(candle){
     candle.cached = true
+    return candle
   }
 
   // fetch candle from Bitfinex

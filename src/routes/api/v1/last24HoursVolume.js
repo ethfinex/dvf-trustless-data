@@ -22,7 +22,7 @@ module.exports = (server) => {
 
     // key we will use to cache this calculation
     const cacheKey = 'last24Hours'
-    // cache calculation for 1 Hour
+    // cache calculation for 1 minute
     const cacheTime = 60
 
     const result = await cacheFunction(cacheKey, cacheTime, async () => {

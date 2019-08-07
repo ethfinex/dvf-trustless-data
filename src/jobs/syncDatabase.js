@@ -70,7 +70,7 @@ module.exports = sync = async (
 
   const saved = await saveFillLogs(logs)
 
-  console.log(`Saved ${saved.events.length} events`)
+  // console.log(`Saved ${saved.events.length} events`)
   
   const updateScannedBlock = await State.updateOne(
     {_id: 'lastScannedBlock'}, 

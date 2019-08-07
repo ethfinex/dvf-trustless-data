@@ -5,7 +5,7 @@ const validatorsAreMet = require('../../../lib/http/validatorsAreMet')
 const calculateTokenRanking = require('../../../models/methods/calculateTokenRanking')
 
 /**
- * Return token volume for giving address.
+ * Return ranking of addresses based on their volume for a given token
  */
 module.exports = (server) => {
   server.get('/api/v1/tokenRanking/:token', [

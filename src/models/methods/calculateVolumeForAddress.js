@@ -3,14 +3,17 @@ const _ = require('lodash')
 
 const findEvents = require('../../models/methods/findEvents')
 
-module.exports = async (startDate, endDate) => {
+module.exports = async (address, startDate, endDate) => {
 
   // fetch all events during startDate and endDate
-  const query = {}
+  const query = {
+    'maker.address': address
+  }
+
   const events = await findEvents(query, startDate)
 
   const tokenVolumes = {}
-  
+
   // total USDWorth for all trades
   let USDWorth = new BigNumber(0)
 
@@ -27,9 +30,7 @@ module.exports = async (startDate, endDate) => {
 
   for(const event of events){
     computeTrade(event.maker.token, event.maker.amount, event.USDValue)
-    computeTrade(event.taker.token, event.taker.amount, event.USDValue)
 
-    USDWorth = USDWorth.plus(event.USDValue)
     USDWorth = USDWorth.plus(event.USDValue)
   }
 

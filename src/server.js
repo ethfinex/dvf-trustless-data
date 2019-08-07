@@ -24,6 +24,8 @@ require('./routes/api/v1/tokenRanking')(server)
 
 require('./routes/api/v1/last24Hours')(server)
 
+require('./routes/api/v1/30DaysVolume')(server)
+
 module.exports = new Promise( (resolve, reject) => {
   server
     .disable('x-powered-by')

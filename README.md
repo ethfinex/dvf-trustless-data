@@ -25,8 +25,18 @@
   - [/api/v1/events/maker/0xf63246f4df508eba748df25daa8bd96816a668ba](https://efx-trustless-data.herokuapp.com/api/v1/events/maker/0xf63246f4df508eba748df25daa8bd96816a668ba)
     - Return all events where maker address is 0xf63246f4df508eba748df25daa8bd96816a668ba
 
-  -  [/api/v1/events/taker/0x61b9898c9b60a159fc91ae8026563cd226b7a0c1](https://efx-trustless-data.herokuapp.com/api/v1/events/taker/0x61b9898c9b60a159fc91ae8026563cd226b7a0c1)
+  - [/api/v1/events/maker/0xf63246f4df508eba748df25daa8bd96816a668ba?startDate=1565097982081&endDate=1565184391511](https://efx-trustless-data.herokuapp.com/api/v1/events/maker/0xf63246f4df508eba748df25daa8bd96816a668ba?startDate=1565097982081&endDate=1565184391511)
+    - Return all events where maker address is 0xf63246f4df508eba748df25daa8bd96816a668ba
+    - Providing `startDate` unix timestamp in millieconds ) for Tue Aug 06 2019 14:26:18 GMT+0100
+    - Providing `endDate` unix timestamp in millieconds ) for Wed Aug 07 2019 14:26:28 GMT+0100
+
+  - [/api/v1/events/taker/0x61b9898c9b60a159fc91ae8026563cd226b7a0c1](https://efx-trustless-data.herokuapp.com/api/v1/events/taker/0x61b9898c9b60a159fc91ae8026563cd226b7a0c1)
     - Return all events where taker address is 0x61b9898c9b60a159fc91ae8026563cd226b7a0c1
+
+  - [/api/v1/events/taker/0x61b9898c9b60a159fc91ae8026563cd226b7a0c1?startDate=1565097982081&endDate=1565184391511](https://efx-trustless-data.herokuapp.com/api/v1/events/taker/0x61b9898c9b60a159fc91ae8026563cd226b7a0c1?startDate=1565097982081&endDate=1565184391511)
+    - Return all events where taker address is 0x61b9898c9b60a159fc91ae8026563cd226b7a0c1
+    - Providing `startDate` unix timestamp in millieconds ) for Tue Aug 06 2019 14:26:18 GMT+0100
+    - Providing `endDate` unix timestamp in millieconds ) for Wed Aug 07 2019 14:26:28 GMT+0100
 
   - [/api/v1/tokenRanking/ETH](https://efx-trustless-data.herokuapp.com/api/v1/tokenRanking/ETH)
     - Return all time volume ranking quoted in ETH

@@ -81,18 +81,18 @@ nockBack( 'all-tests.json', nockDone => {
       assert.equal(config.ethfinexAddress, "0x61b9898c9b60a159fc91ae8026563cd226b7a0c1")
     })
 
-    it('grab current block', async () => {
+    it('getBlock: return a valid block', async () => {
       const lastBlock = await getBlock()
 
       assert.ok(lastBlock.number)
     })
 
-    it('grab logs and save them to the database', async () => {
+    it('getFillLogs / saveFillLogs: Download blocks and save to database', async () => {
       const lastBlock = await getBlock()
 
       const range = {
         fromBlock: {
-          number: 8232529, // roughly 8 hours
+          number: 8232529,
         },
         toBlock: {
           number: 8233529,
@@ -103,8 +103,6 @@ nockBack( 'all-tests.json', nockDone => {
 
       saved = await saveFillLogs(logs)
 
-      // console.log(`length -> ${Object.keys(logs).length}`)
-      // current fixture have 123 blocks with transactions
       assert.equal(saved.blocks.length, await Block.countDocuments())
       assert.equal(saved.transactions.length, await Transaction.countDocuments())
       assert.equal(saved.events.length, await Event.countDocuments())
@@ -187,10 +185,6 @@ nockBack( 'all-tests.json', nockDone => {
       assert.deepEqual(volume.tokens, {}, 'End date before start date badly handled')
     })
 
-    })
-
   })
-
-
 
 })

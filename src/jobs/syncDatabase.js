@@ -62,9 +62,33 @@ const sync = async (
   // const scansLeft = Math.ceil((targetBlockNumber / lastBlock.number) / chunkSize)
   // console.log(` - scans left till sync: ${scansLeft}`)
 
-  const logs = await getFillLogs(range)
+  let logs = null
 
-  const saved = await saveFillLogs(logs)
+  try{
+    logs = await getFillLogs(range)
+  } catch (e) {
+
+    console.log("getFillLogs: error")
+    console.log(e)
+
+    await sleep(1000)
+    sync()
+  }
+  
+  let saved = null
+
+  try{
+    saved = await saveFillLogs(logs)
+  } catch (e) {
+
+    console.log("saveFillLogs: error")
+    console.log(e)
+
+    await sleep(1000)
+    sync()
+  }
+
+  
 
   // console.log(`Saved ${saved.events.length} events`)
 

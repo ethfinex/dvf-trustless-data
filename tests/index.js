@@ -15,6 +15,7 @@ const Event = require('../src/models/Event')
 
 const getEfxConfig = require('../src/lib/efx/getConfig')
 const getHourlyCandle = require('../src/lib/bfx/getHourlyCandle')
+const getPrice = require('../src/lib/bfx/getPrice')
 
 const getBlock = require('../src/lib/web3/getBlock')
 const getFillLogs = require('../src/lib/0x/getFillLogs')
@@ -41,7 +42,8 @@ nockBack( 'all-tests.json', nockDone => {
   after( () => nockDone() )
 
   describe('~ bfx-data', async () => {
-    it('get candle for 1564620468 timestamp', async () => {
+
+    it('getHourlyCandle: fetch candle', async () => {
       // 1564620468 is timestamp for: 2019-08-01 00:47:48.000Z
       const candle = await getHourlyCandle('ETH', 1564620468)
 
@@ -50,21 +52,19 @@ nockBack( 'all-tests.json', nockDone => {
 
     })
 
-    it('get cached candle for 1564620478 timestamp', async () => {
-      // 1564620468 is timestamp for: 2019-08-01 00:2:58.000Z
+    it('getHourlyCandle: fetch cached candle', async () => {
+      // 1564620178 is timestamp for: 2019-08-01 00:42:58.000Z
       const candle = await getHourlyCandle('ETH', 1564620178)
 
       assert.equal(candle.length, 6)
       assert.equal(candle.cached, true)
     })
 
-    it('get candle for 1564820178 timestamp', async () => {
+    it('getPrice: fetch open price for given timestamp', async () => {
       // 1564820178 is timestamp for: 2019-08-03 08:16:18.000Z
-      const candle = await getHourlyCandle('ETH', 1564820178)
+      const price = await getPrice('ETH', 1564820178)
 
-      assert.equal(candle.length, 6)
-      assert.notOk(candle.cached)
-
+      assert.equal(price, 222.21)
     })
 
   })

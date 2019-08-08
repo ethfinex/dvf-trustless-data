@@ -16,6 +16,11 @@
     {
       "plan": "papertrail:free",
       "as": "PAPERTRAIL"
+    },
+    {
+      "plan": "newrelic:wayne",
+      "as": "NEWRELIC"
     }
+    
   ]
 }

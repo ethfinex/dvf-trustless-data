@@ -1,3 +1,5 @@
+require('newrelic')
+
 const BigNumber = require('bignumber.js')
 const connectMongoose = require('./models/mongoose')
 

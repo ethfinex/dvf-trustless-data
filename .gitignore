@@ -3,3 +3,4 @@ node_modules/
 ./mongodb
 package-lock.json
 yarn.lock
+newrelic_agent.log

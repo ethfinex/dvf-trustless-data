@@ -22,7 +22,11 @@ const saveFillLogs = require('../src/lib/efx/saveFillLogs')
 
 
 const calculateTokenRanking = require('../src/models/methods/calculateTokenRanking')
+const calculateUSDRanking = require('../src/models/methods/calculateUSDRanking')
 const calculateVolume = require('../src/models/methods/calculateVolume')
+const calculateVolumeForAddress = require('../src/models/methods/calculateVolumeForAddress')
+
+// TODO: Add tests for all api endpoints
 
 nockBack( 'all-tests.json', nockDone => {
 
@@ -67,7 +71,7 @@ nockBack( 'all-tests.json', nockDone => {
 
   describe('~ trustless-data', async () => {
 
-    it('config is being fetched from ethfinex api', async () => {
+    it('getEFXConfig: config is being fetched from ethfinex api', async () => {
 
       const config = await getEfxConfig()
 
@@ -106,7 +110,7 @@ nockBack( 'all-tests.json', nockDone => {
       assert.equal(saved.events.length, await Event.countDocuments())
     })
 
-    it('calculate token ranking', async () => {
+    it('calculateTokenRanking: returns calculated token ranking', async () => {
       const ranking = await calculateTokenRanking('ETH')
 
       assert.equal(ranking.length, 2)
@@ -117,8 +121,25 @@ nockBack( 'all-tests.json', nockDone => {
       assert.equal(ranking[1].amount, 0.9186519439482634)
     })
 
-    // TODO: write a test for a query with startDate and endDate
-    it('calculate token ranking for a given date period', async () => {
+    it('calculateUSDRanking: returns overall ranking for all currencies', async () => {
+      const ranking = await calculateUSDRanking()
+
+      assert.equal(ranking.length, 4)
+      assert.equal(ranking[0].address, '0x8553d50f35f20c4541960bffb19c2b0a6174e6fc')
+      assert.equal(ranking[0].USDValue, 15355.042811)
+
+      assert.equal(ranking[1].address, '0xc6093fd9cc143f9f058938868b2df2daf9a91d28')
+      assert.equal(ranking[1].USDValue, 534.9980052953249)
+
+      assert.equal(ranking[2].address, '0xf63246f4df508eba748df25daa8bd96816a668ba')
+      assert.equal(ranking[2].USDValue, 201.38879224688242)
+
+      assert.equal(ranking[3].address, '0x96e50ccd13ebf0791d4d8f1cac0c66b8671c8e1b')
+      assert.equal(ranking[3].USDValue, 44.118284)
+    })
+
+
+    it('calculateTokenRanking: returns ranking for a given date period', async () => {
       const startDate = 1564234294 // 2019-07-27 13:31:34.000Z
       const endDate = 1564234295   // 2019-07-27 13:31:35.000Z
 
@@ -128,13 +149,44 @@ nockBack( 'all-tests.json', nockDone => {
       assert.equal(ranking[0].amount, 0.050125313283260954)
     })
 
-    it('calculate volume for a given date period', async () => {
+    it('calculateVolume: returns for a given date period', async () => {
       const startDate = 1564234294 // 2019-07-27 13:31:34.000Z
       const endDate = 1564234295   // 2019-07-27 13:31:35.000Z
 
       const volume = await calculateVolume(startDate, endDate)
 
-      assert.equal(volume.tokens.ETH.tokenAmount, 0.050125313283260954)
+      assert.equal(volume.TotalUSDValue, 20.895429362902952)
+      // Check sum of all token USD value sums to total
+      const totalUSDSum = Object.keys(volume.tokens).reduce(function (total, key) {
+        return total + volume.tokens[key].USDValue;
+      }, 0);
+      assert.equal(volume.TotalUSDValue, totalUSDSum)
+
+    })
+
+    it('calculateVolumeForAddress: returns for a given address over a given date period', async () => {
+      const startDate = 1564185600 // 2019-07-27 00:00:00.000Z
+      const endDate = 1564358400   // 2019-07-29 00:00:00.000Z
+
+      const volume = await calculateVolumeForAddress('0xf63246f4df508eba748df25daa8bd96816a668ba', startDate, endDate)
+
+      assert.equal(volume.TotalUSDValue, 201.38879224688242)
+      // Check sum of all token USD value sums to total
+      const totalUSDSum = Object.keys(volume.tokens).reduce(function (total, key) {
+        return total + volume.tokens[key].USDValue;
+      }, 0);
+      assert.equal(volume.TotalUSDValue, totalUSDSum)
+    })
+
+    it('calculateVolume: correctly handles bad date range', async () => {
+      const startDate = 1564358
+      const endDate = 1564185
+
+      const volume = await calculateVolume(startDate, endDate)
+      assert.equal(volume.TotalUSDValue, 0, 'End date before start date badly handled')
+      assert.deepEqual(volume.tokens, {}, 'End date before start date badly handled')
+    })
+
     })
 
   })

@@ -40,12 +40,10 @@ const sync = async (
 
   // if we have scanned all blocks, then sleep 5 secs and try again
   if (lastScannedBlock.value >= targetBlockNumber) {
-    // console.log( " - synced! now is sleeping 5 seconds")
+    console.log( " - synced! now is sleeping 5 seconds")
     await sleep(1000 * 5)
 
-    sync()
-
-    return
+    return sync()
   }
 
   const range = {
@@ -71,8 +69,9 @@ const sync = async (
     console.log("getFillLogs: error")
     console.log(e)
 
-    await sleep(1000)
-    sync()
+    await sleep(5000)
+
+    return sync()
   }
   
   let saved = null
@@ -84,8 +83,9 @@ const sync = async (
     console.log("saveFillLogs: error")
     console.log(e)
 
-    await sleep(1000)
-    sync()
+    await sleep(5000)
+    
+    return sync()
   }
 
   

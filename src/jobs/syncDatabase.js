@@ -48,7 +48,7 @@ const sync = async (
 
   const range = {
     fromBlock: {
-      number: lastScannedBlock.value // roughly 8 hours
+      number: lastScannedBlock.value + 1 // since we already scanned lastBlock we start from + 1
     },
     toBlock: {
       number: targetBlockNumber
@@ -84,7 +84,7 @@ const sync = async (
     console.log(e)
 
     await sleep(5000)
-    
+
     return sync()
   }
 

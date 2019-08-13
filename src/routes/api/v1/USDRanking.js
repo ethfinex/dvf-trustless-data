@@ -25,6 +25,6 @@ module.exports = (server) => {
     const result = await calculateUSDRanking(startDate, endDate)
 
     res.setHeader('Content-Type', 'application/json')
-    res.send(result || {error: 'not_found'})
+    res.send(result)
   })
 }

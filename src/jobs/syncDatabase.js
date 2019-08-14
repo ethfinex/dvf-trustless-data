@@ -40,17 +40,15 @@ const sync = async (
 
   // if we have scanned all blocks, then sleep 5 secs and try again
   if (lastScannedBlock.value >= targetBlockNumber) {
-    // console.log( " - synced! now is sleeping 5 seconds")
+    console.log( " - synced! now is sleeping 5 seconds")
     await sleep(1000 * 5)
 
-    sync()
-
-    return
+    return sync()
   }
 
   const range = {
     fromBlock: {
-      number: lastScannedBlock.value // roughly 8 hours
+      number: lastScannedBlock.value + 1 // since we already scanned lastBlock we start from + 1
     },
     toBlock: {
       number: targetBlockNumber
@@ -62,9 +60,35 @@ const sync = async (
   // const scansLeft = Math.ceil((targetBlockNumber / lastBlock.number) / chunkSize)
   // console.log(` - scans left till sync: ${scansLeft}`)
 
-  const logs = await getFillLogs(range)
+  let logs = null
 
-  const saved = await saveFillLogs(logs)
+  try{
+    logs = await getFillLogs(range)
+  } catch (e) {
+
+    console.log("getFillLogs: error")
+    console.log(e)
+
+    await sleep(5000)
+
+    return sync()
+  }
+  
+  let saved = null
+
+  try{
+    saved = await saveFillLogs(logs)
+  } catch (e) {
+
+    console.log("saveFillLogs: error")
+    console.log(e)
+
+    await sleep(5000)
+
+    return sync()
+  }
+
+  
 
   // console.log(`Saved ${saved.events.length} events`)
 

@@ -15,6 +15,7 @@ const Event = require('../src/models/Event')
 
 const getEfxConfig = require('../src/lib/efx/getConfig')
 const getHourlyCandle = require('../src/lib/bfx/getHourlyCandle')
+const getPrice = require('../src/lib/bfx/getPrice')
 
 const getBlock = require('../src/lib/web3/getBlock')
 const getFillLogs = require('../src/lib/0x/getFillLogs')
@@ -41,7 +42,8 @@ nockBack( 'all-tests.json', nockDone => {
   after( () => nockDone() )
 
   describe('~ bfx-data', async () => {
-    it('get candle for 1564620468 timestamp', async () => {
+
+    it('getHourlyCandle: fetch candle', async () => {
       // 1564620468 is timestamp for: 2019-08-01 00:47:48.000Z
       const candle = await getHourlyCandle('ETH', 1564620468)
 
@@ -50,21 +52,19 @@ nockBack( 'all-tests.json', nockDone => {
 
     })
 
-    it('get cached candle for 1564620478 timestamp', async () => {
-      // 1564620468 is timestamp for: 2019-08-01 00:2:58.000Z
+    it('getHourlyCandle: fetch cached candle', async () => {
+      // 1564620178 is timestamp for: 2019-08-01 00:42:58.000Z
       const candle = await getHourlyCandle('ETH', 1564620178)
 
       assert.equal(candle.length, 6)
       assert.equal(candle.cached, true)
     })
 
-    it('get candle for 1564820178 timestamp', async () => {
+    it('getPrice: fetch open price for given timestamp', async () => {
       // 1564820178 is timestamp for: 2019-08-03 08:16:18.000Z
-      const candle = await getHourlyCandle('ETH', 1564820178)
+      const price = await getPrice('ETH', 1564820178)
 
-      assert.equal(candle.length, 6)
-      assert.notOk(candle.cached)
-
+      assert.equal(price, 222.21)
     })
 
   })
@@ -81,18 +81,18 @@ nockBack( 'all-tests.json', nockDone => {
       assert.equal(config.ethfinexAddress, "0x61b9898c9b60a159fc91ae8026563cd226b7a0c1")
     })
 
-    it('grab current block', async () => {
+    it('getBlock: return a valid block', async () => {
       const lastBlock = await getBlock()
 
       assert.ok(lastBlock.number)
     })
 
-    it('grab logs and save them to the database', async () => {
+    it('getFillLogs / saveFillLogs: Download blocks and save to database', async () => {
       const lastBlock = await getBlock()
 
       const range = {
         fromBlock: {
-          number: 8232529, // roughly 8 hours
+          number: 8232529,
         },
         toBlock: {
           number: 8233529,
@@ -103,8 +103,6 @@ nockBack( 'all-tests.json', nockDone => {
 
       saved = await saveFillLogs(logs)
 
-      // console.log(`length -> ${Object.keys(logs).length}`)
-      // current fixture have 123 blocks with transactions
       assert.equal(saved.blocks.length, await Block.countDocuments())
       assert.equal(saved.transactions.length, await Transaction.countDocuments())
       assert.equal(saved.events.length, await Event.countDocuments())
@@ -187,10 +185,6 @@ nockBack( 'all-tests.json', nockDone => {
       assert.deepEqual(volume.tokens, {}, 'End date before start date badly handled')
     })
 
-    })
-
   })
-
-
 
 })

@@ -50,6 +50,6 @@ module.exports = (server) => {
     })
 
     res.setHeader('Content-Type', 'application/json')
-    res.send(result || {error: 'not_found'})
+    res.send(result)
   })
 }

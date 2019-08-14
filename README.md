@@ -13,7 +13,7 @@
 
 # Example endpoints
 
-  - [/api/v1/block/8232895](https://api.deversifi.com/api/v1/last24HoursVolume/api/v1/block/8232895)
+  - [/api/v1/block/8232895](https://api.deversifi.com/api/v1/block/8232895)
     - Return information for block #8232895
 
   - [/api/v1/transaction/0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110](https://api.deversifi.com/api/v1/transaction/0x6a502fab01e83e41b1f0dba0448800ccee7e8a379823b938ecf6e12e5491a110)

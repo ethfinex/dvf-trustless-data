@@ -38,7 +38,7 @@
     - Providing `startDate` unix timestamp in millieconds ) for Tue Aug 06 2019 14:26:18 GMT+0100
     - Providing `endDate` unix timestamp in millieconds ) for Wed Aug 07 2019 14:26:28 GMT+0100
 
-  - [/api/v1/tokenRanking/ETH](https://efx-trustless-data.herokuapp.com/api/v1/tokenRanking/ETH)
+  - [/api/v1/tokenRanking/ETH](https://api.deversifi.com/api/v1/tokenRanking/ETH)
     - Return all time volume ranking quoted in ETH
 
   - [/api/v1/tokenRanking/ETH?startDate=1565097982081&endDate=1565184391511](https://api.deversifi.com/api/v1/tokenRanking/ETH?startDate=1565097982081&endDate=1565184391511)
@@ -46,7 +46,7 @@
     - Providing `startDate` unix timestamp in millieconds ) for Tue Aug 06 2019 14:26:18 GMT+0100
     - Providing `endDate` unix timestamp in millieconds ) for Wed Aug 07 2019 14:26:28 GMT+0100
 
-  - [/api/v1/USDRanking](https://efx-trustless-data.herokuapp.com/api/v1/USDRanking)
+  - [/api/v1/USDRanking](https://api.deversifi.com/api/v1/USDRanking)
     - Return all time volume ranking ( for all tokens together ) quoted in USD
 
   - [/api/v1/USDRanking?startDate=1565097982081&endDate=1565184391511](https://api.deversifi.com/api/v1/USDRanking?startDate=1565097982081&endDate=1565184391511)

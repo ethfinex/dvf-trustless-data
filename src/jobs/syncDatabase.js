@@ -67,6 +67,8 @@ const sync = async (
   } catch (e) {
 
     console.log("getFillLogs: error")
+    console.log("lastBlock.number: ", lastBlock.number)
+    console.log("range: ", range)
     console.log(e)
 
     await sleep(5000)

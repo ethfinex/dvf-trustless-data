@@ -40,7 +40,7 @@ const sync = async (
 
   // if we have scanned all blocks, then sleep 5 secs and try again
   if (lastScannedBlock.value >= targetBlockNumber) {
-    console.log( " - synced! now is sleeping 5 seconds")
+    // console.log( " - synced! now is sleeping 5 seconds")
     await sleep(1000 * 5)
 
     return sync()

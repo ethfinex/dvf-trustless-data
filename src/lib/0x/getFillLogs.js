@@ -43,9 +43,19 @@ module.exports = async (range) => {
     tokensSet.add(makerToken)
     tokensSet.add(takerToken)
 
+    if(!config.tokenRegistry[takerToken]){
+      console.log("config.tokenRegistry not found for takerToken: ", takerToken)
+      continue
+    }
+
     const takerAddress = log.args.takerAddress
     const takerAmount = new BigNumber(log.args.takerAssetFilledAmount)
       .shiftedBy(-1 * config.tokenRegistry[takerToken].decimals)
+
+    if(!config.tokenRegistry[makerToken]){
+      console.log("config.tokenRegistry not found for makerToken: ", makerToken)
+      continue
+    }
 
     const makerAddress = log.args.makerAddress
     const makerAmount = new BigNumber(log.args.makerAssetFilledAmount)

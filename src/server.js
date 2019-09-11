@@ -6,6 +6,11 @@ const PORT = process.env.PORT || 5000
 
 const server = express()
 
+server
+  .disable('x-powered-by')
+  .use(cors())
+
+
 console.log(' - starting HTTP API')
 
 // add routes
@@ -31,9 +36,6 @@ require('./routes/api/v1/30DaysVolume')(server)
 
 module.exports = new Promise((resolve, reject) => {
   server
-    .disable('x-powered-by')
-    .use(cors())
-
     .listen(PORT, () => {
       console.log(` - HTTP API online, PORT: ${PORT}`)
       resolve(server)

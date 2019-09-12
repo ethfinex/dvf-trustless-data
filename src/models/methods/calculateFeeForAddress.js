@@ -8,8 +8,7 @@ module.exports = async (address, endDate = (moment().valueOf() / 1000)) => {
 
   // start date is 30 days ago
   const startDate = moment(endDate * 1000).subtract(30, 'days').valueOf() / 1000
-  // const volume = await calculateVolumeForAddress(address, startDate, endDate)
-  const volume = {totalUSDValue: 1000000000000000}
+  const volume = await calculateVolumeForAddress(address, startDate, endDate)
   let total = volume.TotalUSDValue
 
   if(!total) {

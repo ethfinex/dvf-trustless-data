@@ -26,6 +26,7 @@ const calculateTokenRanking = require('../src/models/methods/calculateTokenRanki
 const calculateUSDRanking = require('../src/models/methods/calculateUSDRanking')
 const calculateVolume = require('../src/models/methods/calculateVolume')
 const calculateVolumeForAddress = require('../src/models/methods/calculateVolumeForAddress')
+const calculateFeeForAddress = require('../src/models/methods/calculateFeeForAddress')
 
 // TODO: Add tests for all api endpoints
 
@@ -183,6 +184,23 @@ nockBack( 'all-tests.json', nockDone => {
       const volume = await calculateVolume(startDate, endDate)
       assert.equal(volume.TotalUSDValue, 0, 'End date before start date badly handled')
       assert.deepEqual(volume.tokens, {}, 'End date before start date badly handled')
+    })
+
+    it('calculateFeeForAddress: returns for a given address', async () => {
+      const endDate = 1564358400   // 2019-07-29 00:00:00.000Z
+
+      const fees = await calculateFeeForAddress('0xf63246f4df508eba748df25daa8bd96816a668ba', endDate)
+      assert.equal(fees.small.feeBps, '25')
+      assert.equal(fees.medium.feeBps, '21')
+      assert.equal(fees.large.feeBps, '20')
+    })
+
+    it('calculateFeeForAddress: returns for a given address at latest moment', async () => {
+
+      const fees = await calculateFeeForAddress('0xf63246f4df508eba748df25daa8bd96816a668ba')
+      assert.equal(fees.small.feeBps, '25')
+      assert.equal(fees.medium.feeBps, '21')
+      assert.equal(fees.large.feeBps, '20')
     })
 
   })

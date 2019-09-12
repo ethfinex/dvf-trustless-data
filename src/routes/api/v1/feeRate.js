@@ -3,7 +3,7 @@ const validatorsAreMet = require('../../../lib/http/validatorsAreMet')
 
 const cacheFunction = require('../../../lib/cache/cacheFunction')
 
-const calculateVolumeForAddress = require('../../../models/methods/calculateFeeForAddress')
+const calculateFeeForAddress = require('../../../models/methods/calculateFeeForAddress')
 
 /**
  * Return current fee rate for a given address

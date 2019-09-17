@@ -33,6 +33,7 @@ require('./routes/api/v1/24HoursVolume')(server)
 require('./routes/api/v1/last24HoursVolume')(server)
 
 require('./routes/api/v1/30DaysVolume')(server)
+require('./routes/api/v1/feeRate')(server)
 
 module.exports = new Promise((resolve, reject) => {
   server

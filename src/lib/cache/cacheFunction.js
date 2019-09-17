@@ -6,7 +6,7 @@ module.exports = async (cacheKey, ttlSeconds, resultFunction) => {
   if (!caches[cacheKey]) {
     caches[cacheKey] = new NodeCache({
       stdTTL: ttlSeconds,
-      checkperiod: ttlSeconds / 10
+      checkperiod: ttlSeconds + 10
     })
   }
 
@@ -18,7 +18,7 @@ module.exports = async (cacheKey, ttlSeconds, resultFunction) => {
 
   const result = await resultFunction()
 
-  caches[cacheKey].set(cacheKey, result)
+  caches[cacheKey].set(cacheKey, result, ttlSeconds)
 
   return result
 }

@@ -15,7 +15,7 @@ module.exports = (server) => {
     validatorsAreMet
   ], async (req, res) => {
 
-    const address = req.params.address
+    const address = req.params.address.toLowerCase()
 
     // key we will use to cache this calculation
     const cacheKey = 'feeRate:' + address

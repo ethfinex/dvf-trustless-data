@@ -19,7 +19,7 @@ module.exports = (server) => {
     // start date is 30 days ago
     const startDate = moment().subtract(30, 'days').valueOf() / 1000
 
-    const address = req.params.address
+    const address = req.params.address.toLowerCase()
 
     // key we will use to cache this calculation
     const cacheKey = '30DaysVolume:' + address

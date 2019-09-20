@@ -39,9 +39,9 @@ module.exports = async (address, endDate = (moment().valueOf() / 1000)) => {
 
   const baseFeeBps = new BigNumber(25)
   const accountFee = [
-    baseFeeBps.times(1 - volumeDiscount).toFixed(0),
-    baseFeeBps.times(1 - volumeDiscount).times(0.85).toFixed(0),
-    baseFeeBps.times(1 - volumeDiscount).times(0.8).toFixed(0),
+    Number( baseFeeBps.times(1 - volumeDiscount).toFixed(0) ),
+    Number( baseFeeBps.times(1 - volumeDiscount).times(0.85).toFixed(0) ),
+    Number( baseFeeBps.times(1 - volumeDiscount).times(0.8).toFixed(0) ),
   ]
 
   const response = {

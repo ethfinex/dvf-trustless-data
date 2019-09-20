@@ -1,8 +1,10 @@
 const BigNumber = require('bignumber.js')
 const _ = require('lodash')
 const moment = require('moment')
-
 const calculateVolumeForAddress = require('../../models/methods/calculateVolumeForAddress')
+
+const Web3 = require('web3')
+web3 = new Web3()
 
 module.exports = async (address, endDate = (moment().valueOf() / 1000)) => {
 
@@ -39,25 +41,38 @@ module.exports = async (address, endDate = (moment().valueOf() / 1000)) => {
 
   const baseFeeBps = new BigNumber(25)
   const accountFee = [
-    baseFeeBps.times(1 - volumeDiscount).toFixed(0),
-    baseFeeBps.times(1 - volumeDiscount).times(0.85).toFixed(0),
-    baseFeeBps.times(1 - volumeDiscount).times(0.8).toFixed(0),
+    +baseFeeBps.times(1 - volumeDiscount).toFixed(0),
+    +baseFeeBps.times(1 - volumeDiscount).times(0.85).toFixed(0),
+    +baseFeeBps.times(1 - volumeDiscount).times(0.8).toFixed(0),
   ]
 
   const response = {
-    small: {
-      threshold: 0,
-      feeBps: accountFee[0]
-    },
-    medium: {
-      threshold: 500,
-      feeBps: accountFee[1]
-    },
-    large: {
-      threshold: 2000,
-      feeBps: accountFee[2]
+    address,
+    timestamp: Date.now(),
+    fees: {
+      small: {
+        threshold: 0,
+        feeBps: accountFee[0]
+      },
+      medium: {
+        threshold: 500,
+        feeBps: accountFee[1]
+      },
+      large: {
+        threshold: 2000,
+        feeBps: accountFee[2]
+      }
     }
   }
+
+  const message = JSON.stringify(response)
+
+  const signed = web3.eth.accounts.sign(message, process.env.PRIVATE_KEY )
+
+  response.signature = signed.signature
+
+  // const recover = web3.eth.accounts.recover(message, response.signed)
+  // console.log("recovered:", recover)
 
   return response
 }

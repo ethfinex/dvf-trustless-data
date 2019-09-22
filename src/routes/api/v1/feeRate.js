@@ -15,7 +15,7 @@ module.exports = (server) => {
     validatorsAreMet
   ], async (req, res) => {
 
-    const address = req.params.address
+    const address = req.params.address.toLowerCase()
 
     // key we will use to cache this calculation
     const cacheKey = 'feeRate:' + address
@@ -23,9 +23,7 @@ module.exports = (server) => {
     const cacheTime = 60 * 60
 
     const result = await cacheFunction(cacheKey, cacheTime, async () => {
-      const result = await calculateFeeForAddress(address)
-
-      return result
+      return calculateFeeForAddress(address)
     })
 
     res.setHeader('Content-Type', 'application/json')

@@ -1,0 +1,12 @@
+# ignore whatever is not needed for the build to avoid sending
+# unnecessary data to Docker daemon
+.dockerignore
+.env
+.git
+.gitignore
+Dockerfile
+README.md
+app.json
+docker-build.sh
+node_modules
+tests

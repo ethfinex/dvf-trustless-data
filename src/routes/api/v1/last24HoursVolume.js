@@ -21,12 +21,12 @@ module.exports = (server) => {
     // cache calculation for 1 minute
     const cacheTime = 60
 
-    // const result = await cacheFunction(cacheKey, cacheTime, async () => {
-    const result = await calculateVolume(startDate)
-    result.startDate = moment(startDate * 1000).toDate()
+    const result = await cacheFunction(cacheKey, cacheTime, async () => {
+      const result = await calculateVolume(startDate)
+      result.startDate = moment(startDate * 1000).toDate()
 
-    // return result
-    // })
+      return result
+    })
 
     res.setHeader('Content-Type', 'application/json')
     res.send(result)

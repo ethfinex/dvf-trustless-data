@@ -107,50 +107,42 @@ module.exports = async (logs) => {
     // console.log('block ->', block)
   }
 
-  // create mongodb transaction
-  const session = await mongoose.startSession()
-  session.startTransaction()
+  // hodl all MongoDB upsert promises
+  let promises = []
 
-  if (blockDocs.length) {
-    try {
-      await Block.collection.insertMany(blockDocs)
+  for(const block of blockDocs){
 
-      // console.log(`- inserted ${blockDocs.length} Block documents`)
-    } catch (e) {
-      console.log('Error inserting Block docs ->', e)
-      session.abortTransaction()
-      session.endSession()
-      throw (e)
+    const query = {
+      number: block.number,
+      exchangeWrapper: block.exchangeWrapper,
+      feeRecipientAddress: block.feeRecipientAddress
     }
+
+    const options = {upsert:true}
+
+    promises.push(Block.update(query, block, options).exec())
   }
 
-  if (transactionDocs.length) {
-    try {
-      await Transaction.collection.insertMany(transactionDocs)
+  for(const transaction of transactionDocs){
 
-      // console.log(`- inserted ${transactionDocs.length} Transaction documents`)
-    } catch (e) {
-      console.log('Error inserting Transaction docs ->', e)
-      session.abortTransaction()
-      session.endSession()
-      throw (e)
-    }
+    const query = {_id: transaction._id}
+
+    const options = {upsert:true}
+
+    promises.push(Transaction.update(query, transaction, options).exec())
   }
 
-  if (eventDocs.length) {
-    try {
-      await Event.collection.insertMany(eventDocs)
+  for(const event of eventDocs){
 
-      // console.log(`- inserted ${eventDocs.length} Event documents`)
-    } catch (e) {
-      console.log('Error inserting Event docs ->', e)
-      session.abortTransaction()
-      session.endSession()
-      throw (e)
-    }
+    const query = {_id: event._id}
+
+    const options = {upsert:true}
+
+    promises.push(Event.update(query, event, options).exec())
   }
 
-  session.endSession()
+  // await for all upserts to happen
+  await promises
 
   return {
     blocks: blockDocs,

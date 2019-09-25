@@ -219,7 +219,7 @@ nockBack( 'all-tests.json', nockDone => {
       const web3 = new Web3()
       const recovered = web3.eth.accounts.recover(messageString, signature)
 
-      assert.equal(recovered, process.env.KEY_ADDRESS)
+      assert.equal(recovered, process.env.PRIVATE_KEY_ADDRESS)
     })
 
   })
